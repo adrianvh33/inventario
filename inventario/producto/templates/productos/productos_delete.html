@@ -1,0 +1,7 @@
+{% extends "base.html" %}
+{% block content%}
+<form method="post">{% csrf_token %}
+    <p> Estas segura que quieres borrar "{{producto.referencia}} - {{producto.nombre}}"</p>
+    <input type="submit" class="btn btn-danger" value="Confirm"/>
+</form>
+{% endblock %}
