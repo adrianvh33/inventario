@@ -4,7 +4,6 @@ from tkinter import Widget
 from attr import fields
 import django
 
-
 from django import forms
 from .models import Producto
 
