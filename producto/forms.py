@@ -1,7 +1,3 @@
-import imp
-from pyexpat import model
-from tkinter import Widget
-from attr import fields
 import django
 
 from django import forms
