@@ -52,3 +52,14 @@ class ProductoDetailView(LoginRequiredMixin,DetailView):
     context_object_name ='producto'
     template_name = 'productos/producto_detalle.html'
     login_url = '/'
+
+def importar(request):
+    referencia = '001'
+    nombre = 'prueba'
+    talla = '-'
+    sexo = '-'
+    cantidadSistema = 10
+    precio = 20000
+    editado = datetime.datetime.now()
+    #new_user = Producto.objects.create(referencia=referencia,nombre=nombre,talla=talla,sexo=sexo,cantidadSistema=cantidadSistema,precio=precio,editado=editado)
+    return render(request,'productos/importar.html',{})
