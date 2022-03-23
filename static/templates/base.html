@@ -20,9 +20,14 @@
 
         </div>
       </nav>
-    <div class="my-5 text-center container ">
-        {% block content%}
-        {% endblock %}
-    </div>
+    
+      <div class="card text-center  mx-auto " style="overflow-x:auto; width: 80%;"  >
+        <div class="card-body">
+          {% block content%}
+          {% endblock %}
+        </div>
+      </div>
+    
 </body>
+<script src="{% static 'js/index.js' %}"></script> 
 </html>

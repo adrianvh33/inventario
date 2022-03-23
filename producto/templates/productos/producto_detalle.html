@@ -1,0 +1,45 @@
+{% extends "base.html" %}
+{% block content%}
+    <h1>{{producto.nombre}} - {{producto.referencia}}</h1>
+    <div class="table-responsive " ></div>
+    <table class="table table-striped table-sm ">
+        <tr>
+            <th >Caracteristica</th>
+            <th>Valor</th>
+        </tr>
+        <tr>
+            <td>Talla:</td>
+            <td>{{producto.talla}} </td>
+        </tr>
+        <tr>
+            <td>Tipo:</td>
+            <td>{{producto.sexo}} </td>
+        </tr>
+        <tr>
+            <td>Precio:</td>
+            <td>{{producto.precio}} </td>
+        </tr>
+        <tr>
+            <td>Cantidad sistema:</td>
+            <td>{{producto.cantidadSistema}} </td>
+        </tr>
+        <tr>
+            <td>Cantidad contada:</td>
+            <td class="counter-display">{{producto.cantidadContada}} </td>
+        </tr>
+        <tr>
+            <td>Ultima ediciòn:</td>
+            <td>{{producto.editado}} </td>
+        </tr>
+    </table>
+    <div class="card">
+        <button type="button"   id='plus' class="btn btn-success btn-lg"  >+</button>
+    
+        <button type="button"  id='minus'class="btn btn-danger btn-lg mt-5">-</button>      
+    </div>   
+    
+    
+    <a href="{% url 'productos.list' %}" class="btn btn-secondary my-5">Atras</a>
+    <a href="{% url 'productos.update' pk=producto.id %}" class="btn btn-secondary my-5">Editar</a>
+    <a href="{% url 'productos.delete' pk=producto.id %}" class="btn btn-danger my-5">Eliminar</a>
+{% endblock %}

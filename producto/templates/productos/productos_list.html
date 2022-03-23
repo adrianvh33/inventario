@@ -1,0 +1,27 @@
+{% extends "base.html" %}
+{% block content%}
+    <h1>Estos son los productos:</h1>
+
+    <div class="table-responsive " ></div>
+    <table  class="table table-striped table-sm ">
+        <tr>
+            <th >Referencia</th>
+            <th>Nombre</th>
+            <th>Tipo</th>
+            <th>Cantidad sistema</th>
+            <th>Cantidad contada</th>
+            <th>Precio</th>
+        </tr>
+        {% for producto in productos%}
+        <tr>
+            <td><a href="{% url 'productos.detail' pk=producto.id %}">{{producto.referencia}}</a></td>
+            <td>{{producto.nombre}}</td>
+            <td>{{producto.sexo}}</td>
+            <td>{{producto.cantidadSistema}}</td>
+            <td>{{producto.cantidadContada}}</td>
+            <td>{{producto.precio}}</td>
+        </tr>
+        {% endfor %}
+    </table>
+    </div>
+{% endblock %}

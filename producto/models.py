@@ -9,7 +9,13 @@ class Producto(models.Model):
     sexo = models.CharField(max_length=10)
     referencia = models.CharField(max_length=200)
     precio = models.DecimalField(max_digits=10, decimal_places=2)
-    cantidad = models.IntegerField(
+    cantidadSistema = models.IntegerField(
+        default=0,
+        validators=[
+            MinValueValidator(0)
+        ]
+     )
+    cantidadContada= models.IntegerField(
         default=0,
         validators=[
             MinValueValidator(0)
