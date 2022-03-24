@@ -3,13 +3,14 @@ from django.http import Http404,HttpResponseRedirect
 from django.urls import is_valid_path, reverse
 from .models import Producto
 from django.contrib.auth.mixins import LoginRequiredMixin
-from django.views.generic import DetailView,ListView,CreateView, UpdateView
+from django.views.generic import ListView,CreateView, UpdateView
 from django.views.generic.edit import DeleteView
 from .forms import ProductosForms, ImportarForm, ContadorForm
 import datetime
 from openpyxl import load_workbook
 from django.db import transaction
-from django.views.generic.edit import FormMixin
+from django.db.models import Q
+
 # Create your views here.
 
 
@@ -55,7 +56,7 @@ class ProductosListView(LoginRequiredMixin,ListView):
         qs = super().get_queryset(*args, **kwargs)
         query = self.request.GET.get('q')
         if query:
-            return qs.filter(referencia=query)
+            return qs.filter(Q(referencia=query)|Q(nombre__contains=query))
         return qs
 
 
@@ -73,6 +74,7 @@ class ProductoDetailView(LoginRequiredMixin,UpdateView):
 
 def importar(request):
     editado = datetime.datetime.now()
+    sexos = ('hombre','dama')
     if request.method == 'POST':
         filled_form = ImportarForm(request.POST, request.FILES)
         if filled_form.is_valid():
@@ -82,11 +84,7 @@ def importar(request):
             with transaction.atomic():
                 for row in sheet.iter_rows(min_row=2, min_col=1):
                     referencia = row[0].value
-                    nombre = row[1].value
-                    nombre = nombre.split(' ')
-                    talla = nombre[-1]
-                    sexo = nombre[-2]
-                    nombre = ' '.join(nombre[:-2])
+                    nombre = row[1].value 
                     cantidadSistema = row[2].value
                     if row[3].value:
                         precio = row[3].value
@@ -98,7 +96,7 @@ def importar(request):
                         prod.cantidadSistema=cantidadSistema
                         prod.save()
                     else:
-                        Producto.objects.create(referencia=referencia,nombre=nombre,talla=talla,sexo=sexo,cantidadSistema=cantidadSistema,precio=precio,editado=editado)
+                        Producto.objects.create(referencia=referencia,nombre=nombre,cantidadSistema=cantidadSistema,precio=precio,editado=editado)
             return HttpResponseRedirect(reverse('productos.list'))
         else:
             form = ImportarForm()

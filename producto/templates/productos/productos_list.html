@@ -5,7 +5,7 @@
         <div class="card-body">
         <form method='GET'>
             <div class="input-group">
-                <input type="search" class="form-control rounded" name="q" value="{{ request.GET.q }}" placeholder="Escriba la referencia" aria-label="Search" aria-describedby="search-addon" />
+                <input type="search" class="form-control rounded" name="q" value="{{ request.GET.q }}" placeholder="Escriba la referencia o nombre" aria-label="Search" aria-describedby="search-addon" />
                 <button type="submit" class="btn btn-outline-primary">Buscar</button>
             </div>
         </form>
@@ -16,7 +16,6 @@
         <tr>
             <th >Referencia</th>
             <th>Nombre</th>
-            <th>Tipo</th>
             <th>Cantidad sistema</th>
             <th>Cantidad contada</th>
             <th>Precio</th>
@@ -24,8 +23,7 @@
         {% for producto in productos%}
         <tr>
             <td><a href="{% url 'productos.detail' pk=producto.id %}">{{producto.referencia}}</a></td>
-            <td>{{producto.nombre}}</td>
-            <td>{{producto.sexo}}</td>
+            <td><a href="{% url 'productos.detail' pk=producto.id %}">{{producto.nombre}}</a></td>
             <td>{{producto.cantidadSistema}}</td>
             <td>{{producto.cantidadContada}}</td>
             <td>{{producto.precio}}</td>
