@@ -1,11 +1,14 @@
 from django.shortcuts import render
-from django.http import Http404
+from django.http import Http404,HttpResponseRedirect
+from django.urls import reverse
 from .models import Producto
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.views.generic import DetailView,ListView,CreateView, UpdateView
 from django.views.generic.edit import DeleteView
 from .forms import ProductosForms
 import datetime
+from openpyxl import load_workbook
+
 # Create your views here.
 
 
@@ -54,12 +57,25 @@ class ProductoDetailView(LoginRequiredMixin,DetailView):
     login_url = '/'
 
 def importar(request):
-    referencia = '001'
-    nombre = 'prueba'
-    talla = '-'
-    sexo = '-'
-    cantidadSistema = 10
-    precio = 20000
     editado = datetime.datetime.now()
-    #new_user = Producto.objects.create(referencia=referencia,nombre=nombre,talla=talla,sexo=sexo,cantidadSistema=cantidadSistema,precio=precio,editado=editado)
-    return render(request,'productos/importar.html',{})
+    if request.method == 'POST':
+        file = request.FILES['doc']
+        wb = load_workbook(file)
+        sheet = wb.active
+        for row in sheet.iter_rows(min_row=2, min_col=1):
+            referencia = row[0].value
+            nombre = row[1].value
+            nombre = nombre.split(' ')
+            talla = nombre[-1]
+            sexo = nombre[-2]
+            nombre = ' '.join(nombre[:-2])
+            cantidadSistema = row[2].value
+            if row[3].value:
+                precio = row[3].value
+            else:
+                precio = 0
+            #print('nombre',nombre,'talla',talla,'tipo',sexo)
+            Producto.objects.create(referencia=referencia,nombre=nombre,talla=talla,sexo=sexo,cantidadSistema=cantidadSistema,precio=precio,editado=editado)
+        return HttpResponseRedirect(reverse('productos.list'))
+
+    return render(request,'productos/importar.html', {})
