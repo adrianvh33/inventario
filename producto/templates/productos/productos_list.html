@@ -18,7 +18,6 @@
             <th>Nombre</th>
             <th>Cantidad sistema</th>
             <th>Cantidad contada</th>
-            <th>Precio</th>
         </tr>
         {% for producto in productos%}
         <tr>
@@ -26,7 +25,6 @@
             <td><a href="{% url 'productos.detail' pk=producto.id %}">{{producto.nombre}}</a></td>
             <td>{{producto.cantidadSistema}}</td>
             <td>{{producto.cantidadContada}}</td>
-            <td>{{producto.precio}}</td>
         </tr>
         {% endfor %}
     </table>
