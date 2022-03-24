@@ -25,3 +25,6 @@ class ProductosForms(forms.ModelForm):
         if cantidad < 0:
             raise ValueError('La cantidad debe ser mayor a 0')
         return cantidad
+
+class ImportarForm(forms.Form):
+    file = forms.FileField(label='Subir archivo')

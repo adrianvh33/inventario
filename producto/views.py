@@ -1,13 +1,14 @@
 from django.shortcuts import render
 from django.http import Http404,HttpResponseRedirect
-from django.urls import reverse
+from django.urls import is_valid_path, reverse
 from .models import Producto
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.views.generic import DetailView,ListView,CreateView, UpdateView
 from django.views.generic.edit import DeleteView
-from .forms import ProductosForms
+from .forms import ProductosForms, ImportarForm
 import datetime
 from openpyxl import load_workbook
+from django.db import transaction
 
 # Create your views here.
 
@@ -59,23 +60,35 @@ class ProductoDetailView(LoginRequiredMixin,DetailView):
 def importar(request):
     editado = datetime.datetime.now()
     if request.method == 'POST':
-        file = request.FILES['doc']
-        wb = load_workbook(file)
-        sheet = wb.active
-        for row in sheet.iter_rows(min_row=2, min_col=1):
-            referencia = row[0].value
-            nombre = row[1].value
-            nombre = nombre.split(' ')
-            talla = nombre[-1]
-            sexo = nombre[-2]
-            nombre = ' '.join(nombre[:-2])
-            cantidadSistema = row[2].value
-            if row[3].value:
-                precio = row[3].value
-            else:
-                precio = 0
-            #print('nombre',nombre,'talla',talla,'tipo',sexo)
-            Producto.objects.create(referencia=referencia,nombre=nombre,talla=talla,sexo=sexo,cantidadSistema=cantidadSistema,precio=precio,editado=editado)
-        return HttpResponseRedirect(reverse('productos.list'))
-
-    return render(request,'productos/importar.html', {})
+        filled_form = ImportarForm(request.POST, request.FILES)
+        if filled_form.is_valid():
+            file = request.FILES['file']
+            wb = load_workbook(file)
+            sheet = wb.active
+            with transaction.atomic():
+                for row in sheet.iter_rows(min_row=2, min_col=1):
+                    referencia = row[0].value
+                    nombre = row[1].value
+                    nombre = nombre.split(' ')
+                    talla = nombre[-1]
+                    sexo = nombre[-2]
+                    nombre = ' '.join(nombre[:-2])
+                    cantidadSistema = row[2].value
+                    if row[3].value:
+                        precio = row[3].value
+                    else:
+                        precio = 0
+                    
+                    if Producto.objects.filter(referencia=referencia).exists():
+                        prod = Producto.objects.get(referencia=referencia)
+                        prod.cantidadSistema=cantidadSistema
+                        prod.save()
+                    else:
+                        Producto.objects.create(referencia=referencia,nombre=nombre,talla=talla,sexo=sexo,cantidadSistema=cantidadSistema,precio=precio,editado=editado)
+            return HttpResponseRedirect(reverse('productos.list'))
+        else:
+            form = ImportarForm()
+            print(filled_form.errors)
+    else:
+        form = ImportarForm()
+    return render(request,'productos/importar.html', {'form':form})
