@@ -1,13 +1,13 @@
 from django.shortcuts import render
-from django.http import Http404,HttpResponseRedirect
-from django.urls import is_valid_path, reverse
+from django.http import Http404,HttpResponseRedirect,HttpResponse
+from django.urls import reverse
 from .models import Producto
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.views.generic import ListView,CreateView, UpdateView
 from django.views.generic.edit import DeleteView
 from .forms import ProductosForms, ImportarForm, ContadorForm
 import datetime
-from openpyxl import load_workbook
+from openpyxl import load_workbook,Workbook
 from django.db import transaction
 from django.db.models import Q
 
@@ -104,3 +104,24 @@ def importar(request):
     else:
         form = ImportarForm()
     return render(request,'productos/importar.html', {'form':form})
+
+
+def reporte(request):
+    response = HttpResponse(content_type='application/vnd.openxmlformats-officedocument.spreadsheetml.sheet')
+    response['Content-Disposition'] = 'attachment; filename=reporte.xlsx'
+    wb = Workbook() 
+    products_list = Producto.objects.all()
+    sheet = wb.active
+    sheet.cell(row=1,column=1,value='Referencia')
+    sheet.cell(row=1,column=2,value="nombre")
+    sheet.cell(row=1,column=3,value="Cantidad_Sistema")
+    sheet.cell(row=1,column=4,value="Cantidad_Contada")
+    i = 2
+    for p in products_list:
+        sheet.cell(row=i,column=1,value=p.referencia)
+        sheet.cell(row=i,column=2,value=p.nombre)
+        sheet.cell(row=i,column=3,value=p.cantidadSistema)
+        sheet.cell(row=i,column=4,value=p.cantidadContada)
+        i += 1
+    wb.save(response)     
+    return response
