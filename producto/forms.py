@@ -1,3 +1,4 @@
+from asyncio import coroutines
 import django
 
 from django import forms
@@ -28,3 +29,14 @@ class ProductosForms(forms.ModelForm):
 
 class ImportarForm(forms.Form):
     file = forms.FileField(label='Subir archivo')
+
+class ContadorForm(forms.ModelForm):
+    class Meta:
+        model = Producto
+        fields = ( 'cantidadContada',)
+        widgets ={
+            'cantidadContada': forms.NumberInput(attrs={'class':'text-center', 'id':'counter-display'}),
+        }
+        labels = {
+            'cantidadContada': ''
+        }

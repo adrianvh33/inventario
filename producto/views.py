@@ -5,11 +5,11 @@ from .models import Producto
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.views.generic import DetailView,ListView,CreateView, UpdateView
 from django.views.generic.edit import DeleteView
-from .forms import ProductosForms, ImportarForm
+from .forms import ProductosForms, ImportarForm, ContadorForm
 import datetime
 from openpyxl import load_workbook
 from django.db import transaction
-
+from django.views.generic.edit import FormMixin
 # Create your views here.
 
 
@@ -49,13 +49,27 @@ class ProductosListView(LoginRequiredMixin,ListView):
     context_object_name = 'productos'
     template_name = 'productos/productos_list.html'
     login_url = '/'
+    productos = []
+
+    def get_queryset(self, *args, **kwargs):
+        qs = super().get_queryset(*args, **kwargs)
+        query = self.request.GET.get('q')
+        if query:
+            return qs.filter(referencia=query)
+        return qs
 
 
-class ProductoDetailView(LoginRequiredMixin,DetailView):
+class ProductoDetailView(LoginRequiredMixin,UpdateView):
     model = Producto
-    context_object_name ='producto'
     template_name = 'productos/producto_detalle.html'
+    success_url = '/productos'
+    form_class = ContadorForm
     login_url = '/'
+
+    def form_valid(self, form):
+        form.save()
+        return super(ProductoDetailView, self).form_valid(form)
+
 
 def importar(request):
     editado = datetime.datetime.now()

@@ -1,7 +1,16 @@
 {% extends "base.html" %}
 {% block content%}
     <h1>Estos son los productos:</h1>
-
+    <div class="card">
+        <div class="card-body">
+        <form method='GET'>
+            <div class="input-group">
+                <input type="search" class="form-control rounded" name="q" value="{{ request.GET.q }}" placeholder="Escriba la referencia" aria-label="Search" aria-describedby="search-addon" />
+                <button type="submit" class="btn btn-outline-primary">Buscar</button>
+            </div>
+        </form>
+        </div>
+    </div>
     <div class="table-responsive " ></div>
     <table  class="table table-striped table-sm ">
         <tr>

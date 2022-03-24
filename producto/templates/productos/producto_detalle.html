@@ -1,37 +1,45 @@
 {% extends "base.html" %}
 {% block content%}
     <h1>{{producto.nombre}} - {{producto.referencia}}</h1>
+
+    <form method="post"   >{% csrf_token %}
+        
     <div class="table-responsive " ></div>
-    <table class="table table-striped table-sm ">
-        <tr>
-            <th >Caracteristica</th>
-            <th>Valor</th>
-        </tr>
-        <tr>
-            <td>Talla:</td>
-            <td>{{producto.talla}} </td>
-        </tr>
-        <tr>
-            <td>Tipo:</td>
-            <td>{{producto.sexo}} </td>
-        </tr>
-        <tr>
-            <td>Precio:</td>
-            <td>{{producto.precio}} </td>
-        </tr>
-        <tr>
-            <td>Cantidad sistema:</td>
-            <td>{{producto.cantidadSistema}} </td>
-        </tr>
-        <tr>
-            <td>Cantidad contada:</td>
-            <td class="counter-display">{{producto.cantidadContada}} </td>
-        </tr>
-        <tr>
-            <td>Ultima ediciòn:</td>
-            <td>{{producto.editado}} </td>
-        </tr>
-    </table>
+        <table class="table table-striped table-sm ">
+            <tr>
+                <th >Caracteristica</th>
+                <th>Valor</th>
+            </tr>
+            <tr>
+                <td>Talla:</td>
+                <td>{{producto.talla}} </td>
+            </tr>
+            <tr>
+                <td>Tipo:</td>
+                <td>{{producto.sexo}} </td>
+            </tr>
+            <tr>
+                <td>Precio:</td>
+                <td>{{producto.precio}} </td>
+            </tr>
+            <tr>
+                <td>Cantidad sistema:</td>
+                <td >{{producto.cantidadSistema}}</td>
+            </tr>
+            <tr>
+                <td>Cantidad contada:</td>
+                <td >
+                    {{form.as_p}}
+                </td>
+            </tr>
+            <tr>
+                <td>Ultima ediciòn:</td>
+                <td>{{producto.editado}} </td>
+            </tr>
+        </table>
+        <button type="submit"   class="btn btn-primary btn-lg mb-3"  >guardar</button>
+    </form> 
+    
     <div class="card">
         <button type="button"   id='plus' class="btn btn-success btn-lg"  >+</button>
     
