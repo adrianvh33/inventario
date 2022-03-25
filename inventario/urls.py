@@ -24,4 +24,5 @@ urlpatterns = [
     path('',include('lector.urls')),
     path('inventarios', views.InventariosListView.as_view(), name='inventarios.list'),
     path('inventarios/crear', views.InventariosCreateView.as_view(), name='inventarios.create'),
+    path('inventarios/detalle/<int:pk>', views.InventariosDetailView.as_view(), name='inventarios.detalle'),
 ]
