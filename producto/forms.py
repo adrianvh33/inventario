@@ -36,7 +36,7 @@ class ContadorForm(forms.ModelForm):
     CHOICES=[('tienda','Tienda'),
          ('bloque2','Bloque 2'),
          ('bloque5','Bloque 5') ]
-    radioTienda = forms.ChoiceField(choices=CHOICES, widget=forms.RadioSelect(attrs={'id':'radio', 'class':'','onclick':'EnableDisableTB()'}))
+    radioTienda = forms.ChoiceField(choices=CHOICES, widget=forms.RadioSelect(attrs={'id':'radio', 'class':'radioB','onclick':'EnableDisableTB()'}))
     class Meta:
         model = Producto
         fields = ( 'enTienda','enBloque2','enBloque5')

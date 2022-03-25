@@ -3,7 +3,8 @@
     <h1>{{producto.nombre}} - {{producto.referencia}}</h1>
 
     <form method="post"   >{% csrf_token %}
-        <div class="mx-auto">
+        <div class="radioCon">
+            <h3>Selecciona la ubicacion donde quieres contar</h3>
             {{form.radioTienda}} 
         </div>
     <div class="table-responsive " ></div>
