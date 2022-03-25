@@ -115,13 +115,19 @@ def reporte(request):
     sheet.cell(row=1,column=1,value='Referencia')
     sheet.cell(row=1,column=2,value="nombre")
     sheet.cell(row=1,column=3,value="Cantidad_Sistema")
-    sheet.cell(row=1,column=4,value="Cantidad_Contada")
+    sheet.cell(row=1,column=4,value="Total")
+    sheet.cell(row=1,column=4,value="En_tienda")
+    sheet.cell(row=1,column=4,value="En_bloque_2")
+    sheet.cell(row=1,column=4,value="En_bloque_5")
     i = 2
     for p in products_list:
         sheet.cell(row=i,column=1,value=p.referencia)
         sheet.cell(row=i,column=2,value=p.nombre)
         sheet.cell(row=i,column=3,value=p.cantidadSistema)
-        sheet.cell(row=i,column=4,value=p.cantidadContada)
+        sheet.cell(row=i,column=4,value=p.enTienda + p.enBlqoue2 +p.enBloque5)
+        sheet.cell(row=i,column=4,value=p.enTienda)
+        sheet.cell(row=i,column=4,value=p.enBlqoue2)
+        sheet.cell(row=i,column=4,value=p.enBloque5)
         i += 1
     wb.save(response)     
     return response

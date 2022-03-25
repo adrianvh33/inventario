@@ -3,9 +3,12 @@
     <h1>{{producto.nombre}} - {{producto.referencia}}</h1>
 
     <form method="post"   >{% csrf_token %}
-        
+        <div class="mx-auto">
+            {{form.radioTienda}} 
+        </div>
     <div class="table-responsive " ></div>
         <table class="table table-striped table-sm ">
+            
             <tr>
                 <th >Caracteristica</th>
                 <th>Valor</th>
@@ -15,9 +18,21 @@
                 <td >{{producto.cantidadSistema}}</td>
             </tr>
             <tr>
-                <td>Cantidad contada:</td>
+                <td>En tienda:</td>
                 <td >
-                    {{form.as_p}}
+                    {{form.enTienda}}
+                </td>
+            </tr>
+            <tr>
+                <td>En bloque 2:</td>
+                <td >
+                    {{form.enBloque2}}
+                </td>
+            </tr>
+            <tr>
+                <td>En Blqoue 5:</td>
+                <td >
+                    {{form.enBloque5}}
                 </td>
             </tr>
             <tr>

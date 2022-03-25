@@ -17,14 +17,18 @@
             <th >Referencia</th>
             <th>Nombre</th>
             <th>Cantidad sistema</th>
-            <th>Cantidad contada</th>
+            <th>En tienda</th>
+            <th>En bloque 2</th>
+            <th>En bloque 5</th>
         </tr>
         {% for producto in productos%}
         <tr>
             <td><a href="{% url 'productos.detail' pk=producto.id %}">{{producto.referencia}}</a></td>
             <td><a href="{% url 'productos.detail' pk=producto.id %}">{{producto.nombre}}</a></td>
             <td>{{producto.cantidadSistema}}</td>
-            <td>{{producto.cantidadContada}}</td>
+            <td>{{producto.enTienda}}</td>
+            <td>{{producto.enBloque2}}</td>
+            <td>{{producto.enBloque5}}</td>
         </tr>
         {% endfor %}
     </table>

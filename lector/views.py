@@ -12,11 +12,9 @@ def leer(request):
             print(referencia)
             if Producto.objects.filter(referencia=referencia).exists():
                 prod = Producto.objects.get(referencia=referencia)
-                can = prod.cantidadContada +1
-                print(can)
-                prod.cantidadContada = can
+                prod.enTienda = prod.enTienda
                 prod.save()
-            note = 'Cantidad contada de {} - {} es {}'.format(prod.referencia,prod.nombre,prod.cantidadContada)    
+            note = 'Cantidad contada de {} - {} es {}'.format(prod.referencia,prod.nombre,prod.enTienda)    
             form = LeerForm()
             return render(request,'lector/leer.html', {'form':form, 'note':note})
     else:
