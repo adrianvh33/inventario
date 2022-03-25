@@ -124,9 +124,9 @@ def reporte(request):
         sheet.cell(row=i,column=1,value=p.referencia)
         sheet.cell(row=i,column=2,value=p.nombre)
         sheet.cell(row=i,column=3,value=p.cantidadSistema)
-        sheet.cell(row=i,column=4,value=p.enTienda + p.enBlqoue2 +p.enBloque5)
+        sheet.cell(row=i,column=4,value=p.enTienda + p.enBloque2 +p.enBloque5)
         sheet.cell(row=i,column=4,value=p.enTienda)
-        sheet.cell(row=i,column=4,value=p.enBlqoue2)
+        sheet.cell(row=i,column=4,value=p.enBloque2)
         sheet.cell(row=i,column=4,value=p.enBloque5)
         i += 1
     wb.save(response)     
