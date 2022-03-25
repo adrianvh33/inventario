@@ -116,9 +116,9 @@ def reporte(request):
     sheet.cell(row=1,column=2,value="nombre")
     sheet.cell(row=1,column=3,value="Cantidad_Sistema")
     sheet.cell(row=1,column=4,value="Total")
-    sheet.cell(row=1,column=4,value="En_tienda")
-    sheet.cell(row=1,column=4,value="En_bloque_2")
-    sheet.cell(row=1,column=4,value="En_bloque_5")
+    sheet.cell(row=1,column=5,value="En_tienda")
+    sheet.cell(row=1,column=6,value="En_bloque_2")
+    sheet.cell(row=1,column=7,value="En_bloque_5")
     i = 2
     for p in products_list:
         sheet.cell(row=i,column=1,value=p.referencia)
