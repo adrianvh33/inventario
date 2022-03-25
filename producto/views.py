@@ -79,6 +79,8 @@ def importar(request):
         filled_form = ImportarForm(request.POST, request.FILES)
         if filled_form.is_valid():
             file = request.FILES['file']
+            recontar = filled_form.cleaned_data['recontar']
+            print(recontar)
             wb = load_workbook(file)
             sheet = wb.active
             with transaction.atomic():
@@ -93,8 +95,15 @@ def importar(request):
                     
                     if Producto.objects.filter(referencia=referencia).exists():
                         prod = Producto.objects.get(referencia=referencia)
-                        prod.cantidadSistema=cantidadSistema
-                        prod.save()
+                        if recontar == 'noContar':                            
+                            prod.cantidadSistema=cantidadSistema
+                            prod.enTienda = 0
+                            prod.enBloque2 = 0
+                            prod.enBloque5 = 0
+                            prod.save()
+                        else:
+                            prod.cantidadSistema=cantidadSistema
+                            prod.save()
                     else:
                         Producto.objects.create(referencia=referencia,nombre=nombre,cantidadSistema=cantidadSistema,precio=precio,editado=editado)
             return HttpResponseRedirect(reverse('productos.list'))

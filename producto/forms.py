@@ -30,7 +30,11 @@ class ProductosForms(forms.ModelForm):
         return enTienda
 
 class ImportarForm(forms.Form):
+    CHOICES=[('contar','Mantener conteo'),
+         ('noContar','Dejar el conteo en cero')]
     file = forms.FileField(label='Subir archivo')
+    recontar =forms.ChoiceField(choices=CHOICES, widget=forms.RadioSelect(attrs={'id':'radio', 'class':''}))
+    
 
 class ContadorForm(forms.ModelForm):
     CHOICES=[('tienda','Tienda'),
