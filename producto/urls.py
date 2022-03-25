@@ -9,4 +9,5 @@ urlpatterns = [
     path('productos/<int:pk>/eliminar', views.ProductosDeleteView.as_view(),name='productos.delete'),
     path('productos/importar', views.importar,name='productos.importar'),
     path('productos/reporte', views.reporte,name='productos.reporte'),
+    path('productos/eliminarTodo', views.deleteAll,name='productos.deleteAll'),
 ]

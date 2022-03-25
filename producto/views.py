@@ -131,3 +131,9 @@ def reporte(request):
         i += 1
     wb.save(response)     
     return response
+
+def deleteAll(request):
+    if request.method == 'POST':
+        Producto.objects.all().delete()
+        return HttpResponseRedirect(reverse('productos.list'))
+    return render(request,'productos/productos_delete_all.html', {})

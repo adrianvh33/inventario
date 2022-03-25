@@ -1,5 +1,11 @@
 {% extends "base.html" %}
 {% block content%}
+<nav class="navbar navbar-light" style="background-color: #e3f2fd;">
+    <div class="container">
+      <a  class="navbar-brand" href="{% url 'productos.new'%}" >Crear</a>
+      <a  class="navbar-brand" href="{% url 'productos.deleteAll'%}" >Eliminar</a>
+      </div>    
+</nav>
     <h1>Estos son los productos:</h1>
     <div class="card">
         <div class="card-body">
@@ -17,18 +23,14 @@
             <th >Referencia</th>
             <th>Nombre</th>
             <th>Cantidad sistema</th>
-            <th>En tienda</th>
-            <th>En bloque 2</th>
-            <th>En bloque 5</th>
+            <th>Total</th>
         </tr>
         {% for producto in productos%}
         <tr>
             <td><a href="{% url 'productos.detail' pk=producto.id %}">{{producto.referencia}}</a></td>
             <td><a href="{% url 'productos.detail' pk=producto.id %}">{{producto.nombre}}</a></td>
             <td>{{producto.cantidadSistema}}</td>
-            <td>{{producto.enTienda}}</td>
-            <td>{{producto.enBloque2}}</td>
-            <td>{{producto.enBloque5}}</td>
+            <td>{{producto.enTienda|add:producto.enBloque2|add:producto.enBloque5 }}</td>
         </tr>
         {% endfor %}
     </table>
