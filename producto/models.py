@@ -1,6 +1,8 @@
+from ast import In
+from tkinter import CASCADE
 from django.db import models
 from django.core.validators import MinValueValidator
-
+from inventario.models import Inventarios
 # Create your models here.
 class Producto(models.Model):
     nombre = models.CharField(max_length=200)
@@ -33,3 +35,4 @@ class Producto(models.Model):
         ]
      )
     editado = models.DateTimeField()
+    inventario = models.ForeignKey(Inventarios,on_delete=models.CASCADE, related_name="productos")

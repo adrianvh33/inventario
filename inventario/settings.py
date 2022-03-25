@@ -46,6 +46,7 @@ INSTALLED_APPS = [
     'home',
     'producto',
     'lector',
+    'inventario',
 ]
 
 MIDDLEWARE = [

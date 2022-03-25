@@ -1,0 +1,11 @@
+{% extends "base.html" %}
+{% block content%}
+    <h1>Estos son los inventarios:</h1>
+    <ul  class="list-group"></ul>
+    {% for inventario in inventarios%}
+    <il class="list-group-item"></il>
+    {{inventario.nombre}}
+    </il>
+    {% endfor %}
+    </ul>
+{% endblock %}
