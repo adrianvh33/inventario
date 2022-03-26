@@ -1,4 +1,5 @@
 {% extends "base.html" %}
+{% load static %}
 {% block content%}
     <h1>{{producto.nombre}} - {{producto.referencia}}</h1>
 
@@ -54,4 +55,6 @@
     <a href="{% url 'productos.list' %}" class="btn btn-secondary my-5">Atras</a>
     <a href="{% url 'productos.update' pk=producto.id %}" class="btn btn-secondary my-5">Editar</a>
     <a href="{% url 'productos.delete' pk=producto.id %}" class="btn btn-danger my-5">Eliminar</a>
+    
+<script src="{% static 'js/index.js' %}"></script> 
 {% endblock %}

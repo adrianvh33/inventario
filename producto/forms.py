@@ -7,11 +7,10 @@ from .models import Producto
 class ProductosForms(forms.ModelForm):
     class Meta:
         model = Producto
-        fields = ('referencia','nombre', 'precio', 'cantidadSistema','enTienda','enBloque2','enBloque5')
+        fields = ('referencia','nombre', 'cantidadSistema','enTienda','enBloque2','enBloque5')
         widgets ={
             'referencia': forms.TextInput(attrs={'class':'form-control my-3'}),
             'nombre': forms.TextInput(attrs={'class':'form-control my-3'}),
-            'precio': forms.NumberInput(attrs={'class':'form-control my-3'}),
             'cantidadSistema': forms.NumberInput(attrs={'class':'form-control my-3'}),
             'enTienda': forms.NumberInput(attrs={'class':'form-control my-3'}),
             'enBloque2': forms.NumberInput(attrs={'class':'form-control my-3'}),
