@@ -1,5 +1,5 @@
 from django.shortcuts import render
-from django.http import Http404,HttpResponseRedirect,HttpResponse
+from django.http import HttpResponseRedirect,HttpResponse
 from django.urls import reverse
 from .models import Producto
 from django.contrib.auth.mixins import LoginRequiredMixin
