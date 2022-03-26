@@ -116,7 +116,7 @@ def barcodeTienda(request):
                 prod = Producto.objects.get(referencia=referencia)
                 prod.enTienda= prod.enTienda + 1
                 prod.save()
-                note = 'Cantidad en tienda de {} - {} es {}'.format(prod.referencia,prod.nombre,prod.enBloque5)    
+                note = 'Cantidad en tienda de {} - {} es {}'.format(prod.referencia,prod.nombre,prod.enTienda)    
                 form = LeerForm()
                 return render(request,'lector/barcode.html', {'form':form, 'note':note})
             else:
