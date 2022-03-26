@@ -1,10 +1,12 @@
 {% extends "base.html" %}
+{% load static %}
 {% block content%}
-<div class="form-group">
-    <h2>{{note}}</h2>
+<div class="form-group"  onsubmit="myFunction()">
+    <h2 >{{note}}</h2>
     <form  method="POST"   >{% csrf_token %}
         {{form.as_p}}
         <button type="submit" class="btn btn-primary my-5">Submit</button>
     </form>
 </div>
+<script src="{% static 'js/barcode.js' %}"></script> 
 {% endblock %}
