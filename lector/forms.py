@@ -1,4 +1,3 @@
-from turtle import onclick
 from django import forms
 
 class LeerForm(forms.Form):
