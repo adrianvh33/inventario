@@ -18,11 +18,13 @@
         </div>
     </div>
     <div class="table-responsive " ></div>
+    <form method='GET' id="filtro">
     <table  class="table table-striped table-sm ">
+        <input type="text" id='orderID' name="order" value="" hidden>
         <tr>
-            <th >Referencia</th>
-            <th>Nombre</th>
-            <th>Cantidad sistema</th>
+            <th><a href="#" onclick="submit('referencia')">Referencia</a></th>
+            <th><a href="#" onclick="submit('nombre')"> Nombre</a> </th>
+            <th><a href="#" onclick="submit('cantidadSistema')"> Cantidad sistema</a></th>
             <th>Total</th>
         </tr>
         {% for producto in productos%}
@@ -34,5 +36,13 @@
         </tr>
         {% endfor %}
     </table>
+    </form>
     </div>
+    <script>
+        function submit(order){
+            console.log('clcik')
+        document.getElementById('orderID').value = order;
+        document.getElementById('filtro').submit();
+        }
+    </script>
 {% endblock %}
