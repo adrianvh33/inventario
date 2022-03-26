@@ -1,12 +1,9 @@
-from pyexpat import model
 from django.db import models
-from django.core.validators import MaxValueValidator, MinValueValidator
+from django.core.validators import MinValueValidator
 
 # Create your models here.
 class Producto(models.Model):
     nombre = models.CharField(max_length=200)
-    talla = models.CharField(max_length=1)
-    sexo = models.CharField(max_length=10)
     referencia = models.CharField(max_length=200)
     precio = models.DecimalField(max_digits=10, decimal_places=2)
     cantidadSistema = models.IntegerField(
@@ -15,7 +12,21 @@ class Producto(models.Model):
             MinValueValidator(0)
         ]
      )
-    cantidadContada= models.IntegerField(
+    enTienda= models.IntegerField(
+        default=0,
+        validators=[
+            MinValueValidator(0)
+        ]
+     )
+
+    enBloque2= models.IntegerField(
+        default=0,
+        validators=[
+            MinValueValidator(0)
+        ]
+     )
+    
+    enBloque5= models.IntegerField(
         default=0,
         validators=[
             MinValueValidator(0)
