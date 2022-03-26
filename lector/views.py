@@ -1,8 +1,6 @@
 from django.shortcuts import render
 from .forms import LeerForm
 from producto.models import Producto
-from django.http import Http404,HttpResponseRedirect,HttpResponse
-from django.urls import reverse
 # Create your views here.
 
 def lector(request):
