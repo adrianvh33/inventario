@@ -1,10 +1,26 @@
 {% extends "base.html" %}
+{% load static %}
 {% block content%}
-<div class="form-group">
-    <h2>{{note}}</h2>
+<div class="form-group" id="myForm"   onsubmit="myFunction()">
+    <h2 >{{note}}</h2>
     <form  method="POST"   >{% csrf_token %}
-        {{form.as_p}}
-        <button type="submit" class="btn btn-primary my-5">Submit</button>
+        {{form.referencia}}
+        <button type="submit"  id="myButton" class="btn btn-primary my-5">Subir</button>
+        {{form.ubicacion}}
     </form>
+    <div class="container " style="width: 3%;">
+        <div class="row justify-content-center align-items-center" style="width: 0%;">
+            <div class="form-check form-switch">
+                <div class="col-lg-9">
+                    <input class="form-check-input" onclick="toggle()" name ="camara" type="checkbox" id="cam">
+                    <label class="form-check-label" for="cam">Usar camara?</label>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+<div id="camara" >
 </div>
+<script  src="https://cdnjs.cloudflare.com/ajax/libs/quagga/0.12.1/quagga.min.js"></script> 
+<script src="{% static 'js/lector.js' %}"></script> 
 {% endblock %}

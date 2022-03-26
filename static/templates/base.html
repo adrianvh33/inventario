@@ -12,7 +12,7 @@
     <nav class='navbar navbar-dark bg-dark'> 
         <div class='ms-auto'>
           {% if user.is_authenticated %}
-          <a href="{% url 'lector.list'%}" class="btn btn-outline-light me-1">Lector</a>
+          <a href="{% url 'lector.lector'%}" class="btn btn-outline-light me-1">Lector</a>
           <a href="{% url 'productos.reporte'%}" class="btn btn-outline-light me-1">Reporte</a>
           <a href="{% url 'productos.importar'%}" class="btn btn-outline-light me-1">Importar</a>
           <a href="{% url 'productos.list'%}" class="btn btn-outline-light me-1">Productos</a>
