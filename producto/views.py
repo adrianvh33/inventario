@@ -65,6 +65,8 @@ class ProductosListView(LoginRequiredMixin,ListView):
         # validate ordering here 
         if  order:
             order = '-'+order
+        else:
+            order = '-cantidadSistema'
         return order
     
 
