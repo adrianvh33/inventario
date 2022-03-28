@@ -50,14 +50,22 @@ class ProductosListView(LoginRequiredMixin,ListView):
     context_object_name = 'productos'
     template_name = 'productos/productos_list.html'
     login_url = '/'
-    productos = []
-
+    productos = []    
+    ordering = ['-cantidadSistema']
     def get_queryset(self, *args, **kwargs):
         qs = super().get_queryset(*args, **kwargs)
         query = self.request.GET.get('q')
         if query:
             return qs.filter(Q(referencia=query)|Q(nombre__contains=query))
         return qs
+
+    def get_ordering(self):
+        order = self.request.GET.get('order')
+        print(order)
+        ordering = self.request.GET.get('ordering', order)
+        # validate ordering here
+        return ordering
+    
 
 
 class ProductoDetailView(LoginRequiredMixin,UpdateView):
