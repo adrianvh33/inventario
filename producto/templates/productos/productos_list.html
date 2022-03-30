@@ -26,6 +26,7 @@
             <th><a href="#" onclick="submit('nombre')"> Nombre</a> </th>
             <th><a href="#" onclick="submit('cantidadSistema')"> Cantidad sistema</a></th>
             <th>Total</th>
+            <th><a href="#" onclick="submit('diferencia')"> Diferencia</a></th>
         </tr>
         {% for producto in productos%}
         <tr>
@@ -39,6 +40,13 @@
             {% else %}
             <td >
                 {{producto.enTienda|add:producto.enBloque2|add:producto.enBloque5 }}
+            </td>
+            {% endif %}
+            {% if producto.diferencia != 0 %}
+            <td class="text-danger">{{producto.diferencia}}</td>
+            {% else %}
+            <td >
+                {{producto.diferencia}}
             </td>
             {% endif %}
         </tr>

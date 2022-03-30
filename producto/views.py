@@ -145,7 +145,7 @@ def reporte(request):
     i = 2
     ft = Font(color="FF0000")
     for p in products_list:
-        diff = p.cantidadSistema - (p.enTienda + p.enBloque2 +p.enBloque5)
+        diff = (p.enTienda + p.enBloque2 +p.enBloque5) - p.cantidadSistema
         sheet.cell(row=i,column=1,value=p.referencia)
         sheet.cell(row=i,column=2,value=p.nombre)
         sheet.cell(row=i,column=3,value=p.cantidadSistema)

@@ -32,4 +32,11 @@ class Producto(models.Model):
             MinValueValidator(0)
         ]
      )
+    diferencia= models.IntegerField(
+        default=0,
+     )
     editado = models.DateTimeField()
+
+    def save(self, *args, **kwargs):
+        self.diferencia = (self.enTienda + self.enBloque5 + self.enBloque2) - self.cantidadSistema 
+        return super(Producto, self).save()
