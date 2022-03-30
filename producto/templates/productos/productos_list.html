@@ -32,7 +32,15 @@
             <td><a href="{% url 'productos.detail' pk=producto.id %}">{{producto.referencia}}</a></td>
             <td><a href="{% url 'productos.detail' pk=producto.id %}">{{producto.nombre}}</a></td>
             <td>{{producto.cantidadSistema}}</td>
-            <td>{{producto.enTienda|add:producto.enBloque2|add:producto.enBloque5 }}</td>
+            {% if producto.cantidadSistema != producto.enTienda|add:producto.enBloque2|add:producto.enBloque5 %}
+            <td class="text-danger">
+                {{producto.enTienda|add:producto.enBloque2|add:producto.enBloque5 }}
+            </td>
+            {% else %}
+            <td >
+                {{producto.enTienda|add:producto.enBloque2|add:producto.enBloque5 }}
+            </td>
+            {% endif %}
         </tr>
         {% endfor %}
     </table>
