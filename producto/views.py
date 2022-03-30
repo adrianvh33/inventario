@@ -8,6 +8,8 @@ from django.views.generic.edit import DeleteView
 from .forms import ProductosForms, ImportarForm, ContadorForm
 import datetime
 from openpyxl import load_workbook,Workbook
+from openpyxl.styles import colors
+from openpyxl.styles import Font, Color
 from django.db import transaction
 from django.db.models import Q
 
@@ -136,18 +138,24 @@ def reporte(request):
     sheet.cell(row=1,column=2,value="nombre")
     sheet.cell(row=1,column=3,value="Cantidad_Sistema")
     sheet.cell(row=1,column=4,value="Total")
-    sheet.cell(row=1,column=5,value="En_tienda")
-    sheet.cell(row=1,column=6,value="En_bloque_2")
-    sheet.cell(row=1,column=7,value="En_bloque_5")
+    sheet.cell(row=1,column=5,value="Diferencia")
+    sheet.cell(row=1,column=6,value="En tienda")
+    sheet.cell(row=1,column=7,value="En bloque 2")
+    sheet.cell(row=1,column=8,value="En bloque 5")
     i = 2
+    ft = Font(color="FF0000")
     for p in products_list:
+        diff = p.cantidadSistema - (p.enTienda + p.enBloque2 +p.enBloque5)
         sheet.cell(row=i,column=1,value=p.referencia)
         sheet.cell(row=i,column=2,value=p.nombre)
         sheet.cell(row=i,column=3,value=p.cantidadSistema)
         sheet.cell(row=i,column=4,value=p.enTienda + p.enBloque2 +p.enBloque5)
-        sheet.cell(row=i,column=5,value=p.enTienda)
-        sheet.cell(row=i,column=6,value=p.enBloque2)
-        sheet.cell(row=i,column=7,value=p.enBloque5)
+        sheet.cell(row=i,column=5,value=diff)
+        sheet.cell(row=i,column=6,value=p.enTienda)
+        sheet.cell(row=i,column=7,value=p.enBloque2)
+        sheet.cell(row=i,column=8,value=p.enBloque5)
+        if diff != 0:            
+            sheet.cell(row=i,column=5,value=diff).font=ft
         i += 1
     wb.save(response)     
     return response
