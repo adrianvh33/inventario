@@ -66,7 +66,8 @@ class ProductosListView(LoginRequiredMixin,ListView):
         order = self.request.GET.get('order')
         # validate ordering here 
         if  order:
-            order = '-'+order
+            if order != 'diferencia':
+                order = '-'+order
         else:
             order = '-cantidadSistema'
         return order
@@ -96,16 +97,12 @@ def importar(request):
             print(recontar)
             wb = load_workbook(file)
             sheet = wb.active
+            precio = 0
             with transaction.atomic():
                 for row in sheet.iter_rows(min_row=2, min_col=1):
                     referencia = row[0].value
                     nombre = row[1].value 
-                    cantidadSistema = row[2].value
-                    if row[3].value:
-                        precio = row[3].value
-                    else:
-                        precio = 0
-                    
+                    cantidadSistema = row[2].value                    
                     if Producto.objects.filter(referencia=referencia).exists():
                         prod = Producto.objects.get(referencia=referencia)
                         if recontar == 'noContar':                            

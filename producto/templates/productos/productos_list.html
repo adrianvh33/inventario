@@ -9,9 +9,9 @@
     <h1>Estos son los productos:</h1>
     <div class="card">
         <div class="card-body">
-        <form method='GET'>
+        <form method='GET' id="buscar">
             <div class="input-group">
-                <input type="search" class="form-control rounded" name="q" value="{{ request.GET.q }}" placeholder="Escriba la referencia o nombre" aria-label="Search" aria-describedby="search-addon" />
+                <input type="search" class="form-control rounded" name="q" id="buscar" value="{{ request.GET.q }}" placeholder="Escriba la referencia o nombre" aria-label="Search" aria-describedby="search-addon" />
                 <button type="submit" class="btn btn-outline-primary">Buscar</button>
             </div>
         </form>
@@ -55,8 +55,6 @@
     </form>
     </div>
     <script>
-        let firstTime = true;
-        let asc;
         function submit(order){
         document.getElementById('orderID').value = order;
         document.getElementById('filtro').submit();
