@@ -112,6 +112,7 @@ def importar(request):
                             prod.enBloque5 = 0
                             prod.save()
                         else:
+                            prod.enTienda = 0
                             prod.cantidadSistema=cantidadSistema
                             prod.save()
                     else:

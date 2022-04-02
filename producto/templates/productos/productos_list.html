@@ -42,8 +42,10 @@
                 {{producto.enTienda|add:producto.enBloque2|add:producto.enBloque5 }}
             </td>
             {% endif %}
-            {% if producto.diferencia != 0 %}
+            {% if producto.diferencia < 0 %}
             <td class="text-danger">{{producto.diferencia}}</td>
+            {% elif producto.diferencia > 0 %}
+            <td >+{{producto.diferencia}}</td>
             {% else %}
             <td >
                 {{producto.diferencia}}
